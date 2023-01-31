@@ -6,18 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    li{
+        padding: 20px;
+        height: 12px;
+        border: 1px solid red;
+        margin: 10px;
+    }
+</style>
 <body>
     <center>
     <li>Hello 1</li>
-    <li>Hello 2</li>
-    <li>Hello 3</li>
+    <li id="secondli">Hello 2</li>
+    <li id="thirdli">Hello 3</li>
     <li>Hello 4</li>
     <li>Hello 5</li>
 </center>
 </body>
 <script>
-    const litag = document.getElementsByTagName("li");
-    litag[0].textContent = "Sharpener";
-    litag[2].style.fontWeight = "600";
+    // const litag = document.getElementsByTagName("li");
+    // litag[0].textContent = "Sharpener";
+    // litag[2].style.fontWeight = "600";
+
+    //QuerySelector
+    const secondli = document.querySelector("#secondli");
+    const thirdli = document.querySelector("#thirdli");
+    secondli.style.backgroundColor ="green";
+    thirdli.style.display = "none";
+
+    //QuerySelectorAll
+    const lilist = document.querySelectorAll("li");
+    lilist[1].style.color = "green";
+    for(let i=0;i<lilist.length;i++){
+        if(i%2 != 0){
+            lilist[i].style.backgroundColor = "green";
+        }
+    }
+
 </script>
 </html>
