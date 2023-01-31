@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <div>
+        <li id="firstli">Hello 1</li>
+        <li id="secondli">Hello 2</li>
+        <li id="thirdli">Hello 3</li>
+        <li>Hello 4</li>
+        <li>Hello 5</li>
+    </div>
+    </center>
+</body>
+<script>
+    //Parent Element
+    const firstli = document.getElementById("firstli");
+    const secondli = document.getElementById("secondli");
+    console.log(firstli.parentElement);
+
+    //last Element Child
+    const parEl = firstli.parentElement;
+    console.log(parEl.lastElementChild);
+
+    //last child
+    console.log(parEl.lastChild);
+
+    //create child
+    const chEl = document.createElement("li");
+    console.log(chEl);
+
+    //first element child
+    console.log(firstli);
+
+    //first child
+    console.log(parEl.firstChild);
+
+    //next sibling
+    console.log(secondli.nextSibling);
+
+    //next element sibling
+    console.log(secondli.nextElementSibling);
+
+    //previous sibling
+    console.log(secondli.previousSibling);
+
+    //previous element sibling
+    console.log(secondli.previousElementSibling);
+
+    //create element
+    const newEl = document.createElement("li");
+    //set attribute
+    newEl.setAttribute("id","newChild");
+    //create text node
+    newEl.textContent = "Hello";
+    //append child
+    parEl.prepend(newEl);
+
+</script>
+</html>
