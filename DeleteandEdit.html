@@ -50,12 +50,19 @@ itemList.addEventListener('click', removeItem);
 filter.addEventListener('keyup', filterItems);
 
 // Add item
+var newarr = [];
 function addItem(e){
   e.preventDefault();
 
   // Get input value
   var newItem = document.getElementById('item').value;
   var newdesc = document.getElementById('desc').value;
+
+  //Local storage
+  var lstor = {item:newItem,des:newdesc};
+  newarr.push(lstor);
+  localStorage.setItem("itemlist",JSON.stringify(newarr));
+  
 
   // Create new li element
   var li = document.createElement('li');
@@ -88,6 +95,8 @@ function addItem(e){
   itemList.appendChild(li);
 
 }
+var existingel = localStorage.getItem("itemlist");
+console.log(JSON.parse(existingel));
 
 // Remove item
 function removeItem(e){
