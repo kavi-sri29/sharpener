@@ -96,10 +96,16 @@ function addItem(e){
 
 }
 var existingel = localStorage.getItem("itemlist");
-console.log(JSON.parse(existingel));
+var exist = JSON.parse(existingel);
+
 
 // Remove item
 function removeItem(e){
+  var existingel = localStorage.getItem("itemlist");
+var exist = JSON.parse(existingel);
+  var delEl = e.target.previousSibling;
+  exist = exist.filter(x => x.item!= delEl.previousSibling.textContent)
+  localStorage.setItem("itemlist",JSON.stringify(exist));
   if(e.target.classList.contains('delete')){
     if(confirm('Are You Sure?')){
       var li = e.target.parentElement;
