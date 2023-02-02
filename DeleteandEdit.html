@@ -25,14 +25,14 @@
         <form id="addForm" class="form-inline mb-3">
           <input type="text" class="form-control mr-2" id="item">
           <input type="text" class="form-control mr-2" id="desc">
-          <input type="submit" class="btn btn-dark" value="Submit">
+          <input type="submit" class="btn btn-dark" value="Submit" id="submitbtn">
         </form>
         <h2 class="title">Items</h2>
         <ul id="items" class="list-group">
-          <li class="list-group-item">Item 1 <button class="btn btn-danger btn-sm float-right delete">X</button><button>Edit</button></li>
-          <li class="list-group-item">Item 2 <button class="btn btn-danger btn-sm float-right delete">X</button><button>Edit</button></li>
-          <li class="list-group-item">Item 3 <button class="btn btn-danger btn-sm float-right delete">X</button><button>Edit</button></li>
-          <li class="list-group-item">Item 4 <button class="btn btn-danger btn-sm float-right delete">X</button><button>Edit</button></li>
+          <li class="list-group-item" id="Item_1">Item 1 <button class="btn btn-danger btn-sm float-right delete">X</button><button class="edit">Edit</button></li>
+          <li class="list-group-item" id="Item_2">Item 2 <button class="btn btn-danger btn-sm float-right delete">X</button><button class="edit">Edit</button></li>
+          <li class="list-group-item" id="Item_3">Item 3 <button class="btn btn-danger btn-sm float-right delete">X</button><button class="edit">Edit</button></li>
+          <li class="list-group-item" id="Item_4">Item 4 <button class="btn btn-danger btn-sm float-right delete">X</button><button class="edit">Edit</button></li>
         </ul>
        </div>
       </div>
@@ -48,14 +48,19 @@ form.addEventListener('submit', addItem);
 itemList.addEventListener('click', removeItem);
 // Filter event
 filter.addEventListener('keyup', filterItems);
-
+var newItem = document.getElementById('item').value;
 // Add item
 var newarr = [];
 function addItem(e){
+  
   e.preventDefault();
+  if(e.target.children.submitbtn.value === "Update"){
+    updatedetails();
+    return
+  }
 
   // Get input value
-  var newItem = document.getElementById('item').value;
+  
   var newdesc = document.getElementById('desc').value;
 
   //Local storage
@@ -80,10 +85,11 @@ function addItem(e){
 
   // Add classes to del button
   deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+  editBtn.className = 'edit';
 
   // Append text node
   deleteBtn.appendChild(document.createTextNode('X'));
-  editBtn.textContent = "edit";
+  editBtn.textContent = "Edit";
 
   // Append button to li
   li.appendChild(desli);
@@ -98,16 +104,32 @@ function addItem(e){
 var existingel = localStorage.getItem("itemlist");
 var exist = JSON.parse(existingel);
 
+function updatedetails(){
+  document.getElementById(editid).firstChild.textContent= document.getElementById("item").value;
+  document.getElementById("submitbtn").value = "Submit";
+}
+var editid = "";
+//Edit item
+document.addEventListener("click", event => {
+  if(event.target.classList.contains("edit")){
+  var textedit = event.target.previousSibling.previousSibling.textContent;
+  editid = event.target.parentElement.id;
+  document.getElementById("item").value = textedit;
+  document.getElementById("submitbtn").value = "Update";
+  }
+})
+
 
 // Remove item
 function removeItem(e){
-  var existingel = localStorage.getItem("itemlist");
+ 
+  if(e.target.classList.contains('delete')){
+    if(confirm('Are You Sure?')){
+      var existingel = localStorage.getItem("itemlist");
 var exist = JSON.parse(existingel);
   var delEl = e.target.previousSibling;
   exist = exist.filter(x => x.item!= delEl.previousSibling.textContent)
   localStorage.setItem("itemlist",JSON.stringify(exist));
-  if(e.target.classList.contains('delete')){
-    if(confirm('Are You Sure?')){
       var li = e.target.parentElement;
       itemList.removeChild(li);
     }
